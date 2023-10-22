@@ -1,0 +1,10 @@
+.header {
+   background: linear-gradient(90deg, white, rgb(3, 122, 77), white);
+   text-align: center;
+   color: rgb(211, 233, 131);
+   padding:2rem
+}
+
+h3, h4 {
+   font-weight: bold;
+}
