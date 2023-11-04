@@ -19,53 +19,57 @@
     <body class="row container-fluid">
         <header class="col-lg-12">
             <h1 class="header">Weather Dashboard</h1>
+            <h4 id="correctCity" >Please enter a city</h4>
         </header>
 
         <main class="row container-fluid">
-            <div class="col-lg-3 p-3">
+            <div class="col-lg-2 p-3">
                 <form id="searchBar">
                     <div class="mb-3">
-                        <h3>Search for a City:</h3>
+                        <h5>Search for a City:</h5>
                         <input class="form-control" id="city">
                     </div>
                     <button type="submit" class="btn btn-primary col-lg-12">Search</button>
                 </form>
-                <div id="history" class="list-group mt-3">
+                <div >
+                </div>
+                <div id="history" class="btn-group-vertical mt-3">
                 </div>
             </div>         
 
-            <div class="col-lg-9">
-                <div id="weatherToday" class="card" >
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="col-lg-10">
+                <div class="card" >
+                    <div id="weatherToday" class="card-body">
+                        <h5 id="todayTitle" class="card-title fw-bolder fs-4">Today`s weather</h5>
                     </div>
                 </div>
 
                 <div class="row container-fluid">
                     <h4 class="mt-3"> 5-day Forecast:</h4>
-                    <div id="day2" class="card col-lg-2 m-3" >
+                    <div id="day1" class="card col-lg-2 m-2" >
                         <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 id="date" class="card-title">Day1</h5>
                         </div>
                     </div>
-                    <div id="day3" class="card col-lg-2 m-3" >
+                    <div id="day2" class="card col-lg-2 m-2" >
                         <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 class="card-title">Day2</h5>
                         </div>
                     </div>
-                    <div id="day4" class="card col-lg-2 m-3" >
+                    <div id="day3" class="card col-lg-2 m-2" >
                         <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 class="card-title">Day3</h5>
+                            <p class="card-text"></p>
                         </div>
                     </div>
-                    <div id="day5" class="card col-lg-2 m-3" >
+                    <div id="day4" class="card col-lg-2 m-2" >
                         <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 class="card-title">Day4</h5>
+                        </div>
+                    </div>
+                    <div id="day5" class="card col-lg-2 m-2" >
+                        <div class="card-body">
+                            <h5 class="card-title">Day5</h5>
                         </div>
                     </div>
                 </div>
@@ -76,6 +80,8 @@
         crossorigin="anonymous"
         ></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+        <script>dayjs().format()</script>
         <script src="./assets/js/script.js"></script>
     </body>
 </html>
