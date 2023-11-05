@@ -4,11 +4,12 @@ let geocode = {
     lon: 0,
 }
 const history = $('#history');
-
+// initialize the dialog, set it to not open status
 $( "#correctCity" ).dialog({
     autoOpen: false
 });
 
+//eventlistener on the search bar
 $('#searchBar').on('submit', function(event){
     event.preventDefault();
     city = $('#city').val().trim();
@@ -31,6 +32,7 @@ function getGeocode(){
     .then (function(data){
         geocode.lat = data[0].lat;
         geocode.lon = data[0].lon;
+        //get city name value from the API, ensure the current expression of the desire searched city.
         city = data[0].name;
         searchHistory(city);
     })
@@ -57,6 +59,7 @@ function showCurrent(data) {
     todayCity.addClass('card-title fw-bolder fs-4');
     todayCity.text(city +"  " + data.list[0].dt_txt.slice(0, 10));
 
+
     const weatherIcon = 'https://openweathermap.org/img/wn/'+ data.list[0].weather[0].icon +'@2x.png'
     const cardText = $('<img>');
     cardText.attr({
@@ -80,6 +83,7 @@ function showCurrent(data) {
     $('#weatherToday').append([todayCity,cardText,todayTemp,todayWind,todayHumidity]);
 }
 
+// same logic as current weather. by using for loop to autofill 5 days info.
 function show5Days(data){
     for (i=1;i<6;i++){
         $('#day'+i).empty();
@@ -113,6 +117,8 @@ function show5Days(data){
     }    
 }
 
+// passing city value from the Geocode API, allowing search history shows correct city name.
+// this function achieves the generation of the button list for the search history.
 function searchHistory(city){
     const historyBtn = $('<button>');
     historyBtn.attr({
@@ -130,14 +136,15 @@ function searchHistory(city){
         historyBtns.first().remove()
     }
 
+    // to store the history list into the local storage.
     const historyList = [history.children().eq(0).text()];
     for (i=1;i<history.children().length;i++){
         historyList.push(history.children().eq(i).text())         
     }
-
     localStorage.setItem('historyList',JSON.stringify(historyList));
 }
 
+//render page function for showing the presistant data on the page when open.
 function renderPage(){
     const historyList = JSON.parse(localStorage.getItem('historyList'));
     if (historyList == undefined) {
@@ -156,6 +163,7 @@ function renderPage(){
     }
 }
 
+//eventlistener listening to the click on history buttons, passing text of the button to initialize the search of that value.
 $('#history').on('click', function(event){
     const historyCity= $(event.target)
     city = historyCity.text();
