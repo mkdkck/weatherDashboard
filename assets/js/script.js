@@ -17,9 +17,7 @@ $('#searchBar').on('submit', function(event){
         $( "#correctCity" ).dialog( "open" );
         return;
     } else {};
-    
     getGeocode();
-    getWeather();
 })
 
 // Geocode API
@@ -32,6 +30,9 @@ function getGeocode(){
     .then (function(data){
         geocode.lat = data[0].lat;
         geocode.lon = data[0].lon;
+        console.log(data)
+        console.log(geocode)
+
         //get city name value from the API, ensure the current expression of the desire searched city.
         city = data[0].name;
         searchHistory(city);
@@ -40,12 +41,13 @@ function getGeocode(){
 
 //weather API
 function getWeather(){
-    const weatherAPI = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + geocode.lat +'&lon=' + geocode.lon +'&appid=53cd40b89c09fcb06493bd8c604c7714&units=metric'
+    const weatherAPI = `http://api.openweathermap.org/data/2.5/forecast?lat=${geocode.lat}&lon=${geocode.lon}&appid=53cd40b89c09fcb06493bd8c604c7714&units=metric`
     fetch(weatherAPI)
     .then(function(response){
         return response.json();
     })
     .then (function(data){
+        console.log (data)
         showCurrent(data);
         show5Days(data); 
     })
@@ -55,6 +57,23 @@ function showCurrent(data) {
     // clear the div to prevent duplicate info created when submit multiple times.
     $('#weatherToday').empty();
 
+    //added UVI info.
+    console.log(geocode)
+
+    const UVAPI = `https://api.openweathermap.org/data/3.0/onecall?lat=${geocode.lat}&lon=${geocode.lon}&appid=53cd40b89c09fcb06493bd8c604c7714`
+    fetch(UVAPI)
+    .then(function(UVresponse){
+        return UVresponse.json();
+    })
+    .then (function(UVdata){
+        console.log (UVdata,'UVdata')   
+        const UVI= $('<p>');
+        UVI.addClass('card-text');
+        UVI.text(`Current UVI: ${UVdata.current.uvi}`);
+        $('#weatherToday').append(UVI);
+    })
+    
+    
     const todayCity = $('<h5>');
     todayCity.addClass('card-title fw-bolder fs-4');
     todayCity.text(city +"  " + data.list[0].dt_txt.slice(0, 10));
